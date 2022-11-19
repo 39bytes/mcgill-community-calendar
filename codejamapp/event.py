@@ -17,12 +17,12 @@ def info(id):
 
 @bp.route("/<int:id>/edit", methods=("GET", "POST"))
 @auth.login_required
-def edit():
+def edit(id):
     event = Event.query.filter(Event.id == id).first()
     if request.method == "POST":
         # update event
-        return redirect(url_for("event.info"))
-    return redirect(url_for("index"))
+        return redirect(url_for("event.info", id=event.id))
+    return render_template("event/edit.html", event=event)
 
 @bp.route("/create", methods=("GET", "POST"))
 @auth.login_required

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 import os
 from jinja2 import environment
 

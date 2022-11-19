@@ -73,7 +73,6 @@ def edit(id):
 
         return redirect(url_for("event.info", id=event.id))
     return render_template("event/edit.html", event=event)
-
 @bp.route("/create", methods=("GET", "POST"))
 @auth.login_required
 def create():
@@ -113,6 +112,14 @@ def create():
 
     return render_template('event/create.html')
 
+@bp.route('/<int:id>/delete', methods=("POST",))
+@auth.login_required
+def delete(id):
+    event = Event.query.filter(Event.id == id).first()
+    event.query.filter(event.id == id).delete()
+    db_session.commit()
+    return redirect(url_for("index"))
+
 def group_by_day(events: List[Event], start_day):
     """Takes a list of events ordered by start time, and groups them by day."""
     if not events:
@@ -139,8 +146,9 @@ def group_by_day(events: List[Event], start_day):
     grouped.append(current_day_events)
     grouped += [[]] * (14 - len(grouped))
     return grouped
-
+    
+    
 @bp.app_template_filter()
 def str_strip(s : str, strip_char: str):
     return s.strip(strip_char)
-
+    

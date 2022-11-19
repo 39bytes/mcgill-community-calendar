@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form method="POST" class="mx-20 mt-8">
+<form method="POST" class="mx-20 mt-6">
   <div>
     <h1 class="class=block mb-2 font-medium text-gray-900 text-2xl">Create Event</h1>
   </div>
@@ -18,7 +18,7 @@
   </div>
 
   <div class="mb-6">
-    <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900 ">Date and time</label>
+    <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900">Date and time</label>
     <input type="datetime-local" name="start_time" id="start_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
   </div>
 
@@ -38,7 +38,24 @@
     </select>
   </div>
 
-  <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mb-10 text-center">Post</button>
+  <div class="mb-6">
+    <label for="eventImage" class="cursor-pointer block mb-2 text-sm font-medium text-gray-900">
+    <span class="bg-gray-50 border border-gray-300 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add an image of your event</span><br><br>
+      <input id="eventImage" name="eventImage" type="file" accept="image/*" multiple class="hidden">
+      <p id="imageName"></p>
+    </label>
+  </div>
+
+  <script>
+    let input = document.getElementById("eventImage");
+    let imageName = document.getElementById("imageName");
+    input.addEventListener("change", ()=>{
+      let eventImage = document.querySelector("input[type=file]").files[0];
+      imageName.innerHTML = eventImage.name;
+    })
+  </script>
+
+  <button type="submit" class="mb-6 text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Post</button>
 </form>
 
 {% endblock %}

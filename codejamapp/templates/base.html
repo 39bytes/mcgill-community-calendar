@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>McGill Events</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/output.css') }}">
+    </head>
+    <body>
+    <nav>
+      <ul>
+        {% if g.user %}
+            <li><span>{{ g.user.email }}</span></li>
+            <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+        {% else %}
+            <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+            <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    <div>
+        {% for message in get_flashed_messages() %}
+            <div>{{ message }}</div>
+        {% endfor%}
+    </div>
+    {% block content %}
+    {% endblock %}
+    </body>
+</html>

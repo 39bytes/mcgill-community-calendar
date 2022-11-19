@@ -26,7 +26,7 @@ class Event(Base):
     end_time = Column(DateTime(timezone=True))
     
     # A comma separated list of tags
-    tags = Column(Text)
+    tags = Column(Text, nullable=True)
 
     creator_id = Column(Integer, ForeignKey("users.id"))
     creator = relationship("User", back_populates="events")
@@ -47,7 +47,7 @@ class Event(Base):
         self.creator_id = creator_id
         self.description = description
         self.location = location
-        self.start_time = start_time,
+        self.start_time = start_time
         self.end_time = end_time
         self.tags = tags
 

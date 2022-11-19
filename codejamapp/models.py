@@ -31,6 +31,16 @@ class Event(Base):
     creator_id = Column(Integer, ForeignKey("users.id"))
     creator = relationship("User", back_populates="events")
 
+    def update(self, name: str, creator_id: int, description: str, location: str,
+                 start_time: datetime.datetime, end_time: datetime.datetime, tags=""):
+        self.name = name
+        self.creator_id = creator_id
+        self.description = description
+        self.location = location
+        self.start_time = start_time,
+        self.end_time = end_time
+        self.tags = tags
+
     def __init__(self, name: str, creator_id: int, description: str, location: str, 
                  start_time: datetime.datetime, end_time: datetime.datetime, tags=""):
         self.name = name

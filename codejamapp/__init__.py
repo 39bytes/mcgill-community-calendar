@@ -1,8 +1,11 @@
 from flask import Flask, render_template
 import os
 
+from codejamapp import event_blueprint
+
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
+    app.register_blueprint(event_blueprint)
     app.config.from_mapping(
         DATABASE = os.path.join(app.instance_path, 'codejam.sqlite'),
         SECRET_KEY="dev"

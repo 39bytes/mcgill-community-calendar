@@ -26,6 +26,10 @@ def create_app():
     from . import auth
     app.register_blueprint(auth.bp)
 
+    @app.route('/user')
+    def user():
+        return render_template('user.html')
+
     return app
 
 # if __name__ == "__main__":

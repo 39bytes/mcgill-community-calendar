@@ -14,17 +14,11 @@
     </div>
     <div class="rounded py-2 grid grid-cols-7 grid-rows-2 w-auto h-96 gap-2">
         {% for i in range(0, 14) %}
-            <div class="rounded border bg-gray-50 border-gray-300 px-2 py-1">
+            <div class="rounded border {{ 'bg-gray-300' if i < offset else 'bg-gray-50' }} border-gray-300 px-2 py-1">
                 <div>
-                    {% if i == offset %}
-                        <div class="rounded-3xl border border-red-500 w-7 h-7 text-center">
-                            {{current_day - offset + i}}
-                        </div>
-                    {% else %}
-                        <div class="rounded-3xl border border-gray-400 w-7 h-7 text-center">
-                            {{current_day - offset + i}}
-                        </div>
-                    {% endif %}
+                    <div class="rounded-3xl border {{'border-red-500' if i == offset else 'border-gray-400'}} w-7 h-7 text-center">
+                        {{current_day - offset + i}}
+                    </div>
                     {% for event in events[i] %}
                     <div>
                         {{event.name}}

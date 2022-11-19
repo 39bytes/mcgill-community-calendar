@@ -48,15 +48,12 @@ def register():
 @bp.route('/login', methods=("GET", "POST"))
 def login():
     if request.method == "POST":
-        name = request.form['name']
         email = request.form["email"]
         password = request.form["password"]
         error = None
 
         # Input validation
-        if not name:
-            error = "Name is required."
-        elif not email:
+        if not email:
             error = "Name is required."
         elif not password:
             error = "Password is required."

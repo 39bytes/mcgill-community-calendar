@@ -24,7 +24,8 @@ def edit(id):
         description = request.form["description"]
         location = request.form["location"]
         start_time = request.form["start_time"]
-        
+        error = None
+
         if not name:
             error = "A name is required."
         elif not location:

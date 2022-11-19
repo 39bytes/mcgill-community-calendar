@@ -20,7 +20,31 @@ def info(id):
 def edit(id):
     event = Event.query.filter(Event.id == id).first()
     if request.method == "POST":
-        # update event
+        name = request.form["name"]
+        description = request.form["description"]
+        location = request.form["location"]
+        start_time = request.form["start_time"]
+        
+        if not name:
+            error = "A name is required."
+        elif not location:
+            error = "A location is required"
+        elif not start_time:
+            error = "A start time is required"
+        elif not description:
+            error = "A description is required"
+        
+        start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
+
+        if error is None:
+            setattr(event, "name", name)
+            setattr(event, "description", description)
+            setattr(event, "location", location)
+            setattr(event, "start_time", start_time)
+            db_session.commit()
+
+        flash(error)
+
         return redirect(url_for("event.info", id=event.id))
     return render_template("event/edit.html", event=event)
 

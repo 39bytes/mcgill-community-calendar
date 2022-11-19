@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ event.name }}</h1>
-<div>Created by {{ event.creator.email }} ({{ event.creator_id}})</div>
-<p class="text-red-600">{{ event.location }}</p>
-<p>Start time: {{ event.start_time.strftime('%Y-%m-%d %H:%M') }}</p>
-<br>
-<p>{{ event.description }}</p>
-{% if g.user.id == event.creator_id %}
-<a href="{{ url_for('event.edit', id=event.id) }}">Edit</a>
-{% endif %}
+
+<div class="flex justify-center">
+    <div class="md:w-6/12 w-10/12 mx-20 shadow-md px-10 py-10 mt-16 rounded">
+
+        <h1 class="text-center text-2xl font-medium">{{ event.name }}</h1>
+        <p class="text-center">Hosted by <a href="#">{{ event.creator.name }}</a></p><br>
+        <p><span class="font-bold">Location:</span> {{ event.location }}</p>
+        <p><span class="font-bold">Start time:</span> {{ event.start_time.strftime('%Y-%m-%d %H:%M') }}</p>
+        <p class="mb-7">{{ event.description }}</p>
+
+
+        <div></div>
+
+        {% if g.user.id == event.creator_id %}
+        <a href="{{ url_for('event.edit', id=event.id) }}" class="mr-2 py-2 px-4 bg-red-600 text-white rounded hover:bg-red-800 transition duration-300">Edit</a>
+        <a href="#" class="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-800 transition duration-300">Delete</a>
+        {% endif %}
+
+    </div>    
+</div>
+
 {% endblock %}

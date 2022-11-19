@@ -26,4 +26,9 @@ def create_app():
     from . import auth
     app.register_blueprint(auth.bp)
 
+    # Temporary app to render create event html
+    @app.route('/create')
+    def create():
+        return render_template('events/create.html')
+
     return app

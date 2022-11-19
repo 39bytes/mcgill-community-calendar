@@ -19,12 +19,7 @@ def create_app():
     database.init_db()
     database.init_app(app)
 
-    @app.route('/')
-    def index():
-        return render_template('index.html')
-
-    app.add_url_rule('/', 'index')
-
+    
     from . import auth
     app.register_blueprint(auth.bp)
 
@@ -33,5 +28,7 @@ def create_app():
 
     from . import user
     app.register_blueprint(user.bp)
+
+    app.add_url_rule('/', 'index')
 
     return app

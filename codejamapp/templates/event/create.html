@@ -26,6 +26,17 @@
     <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
     <textarea id="description" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
   </div>
+  <div class="mb-6">
+    <label for="tags" class="block mb-2 text-sm font-medium text-gray-900">Select tags...</label>
+    <select multiple id="tags" name="tags[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+      <option value="Club">Club</option>
+      <option value="Workshop">Workshop</option>
+      <option value="Sports">Sports</option>
+      <option value="Fundraiser">Fundraiser</option>
+      <option value="Volunteer">Volunteer</option>
+      <option value="Other">Other</option>
+    </select>
+  </div>
 
   <div class="mb-6">
     <label for="eventImage" class="cursor-pointer block mb-2 text-sm font-medium text-gray-900">

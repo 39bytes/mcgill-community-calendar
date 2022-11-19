@@ -12,6 +12,11 @@
             <p><span class="font-bold">Location:</span> {{ event.location }}</p>
             <p><span class="font-bold">Start time:</span> {{ event.start_time.strftime('%Y-%m-%d %H:%M') }}</p>
             <p class="mb-7">{{ event.description }}</p>
+            <div class="mb-7">
+            {% for tag in event.tags.split(',') %}
+            <span class="text-gray-400">#{{tag}}</span>
+            {% endfor %}
+            </div>
 
 
             <div></div>

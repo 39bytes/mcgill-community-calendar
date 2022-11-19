@@ -2,9 +2,12 @@
 module.exports = {
   content: [
   "./codejamapp/templates/**/*.html",
-  "./codejamapp/static/src/**/*.js"],
+  "./codejamapp/static/src/**/*.js",
+  "./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+        require('flowbite/plugin')
+    ],
 }

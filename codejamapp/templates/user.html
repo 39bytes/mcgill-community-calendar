@@ -1,22 +1,38 @@
 {% extends 'base.html' %}
 
-{% block content%}
+{% block content %}
 
-    <div class="md:flex no-wrap md:-mx-2 ">
-        <div class="w-full md:w-3/12 md:mx-2">
-            <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ user.email }}</h1>
+    <div class="md:flex no-wrap h-[80vh]">
+        {#    Left column -> picture, name, email #}
+        <div class="w-full md:w-3/12 border-r-2">
+            <div class="flex justify-center">
+                <div class="w-40 h-40 bg-gray-500 rounded-full"></div>
+            </div>
+            <div class="w-full flex justify-center">
+                <h1 class="text-gray-900 font-bold text-3xl leading-8 my-1 mt-4">{{ user.username }}</h1>
+            </div>
+            <div class="w-full flex justify-center">
+                <h2 class="text-gray-900 font-bold text-xl leading-8 my-1 mt-4">{{ user.email }}</h2>
+            </div>
+        </div>
 
+        {#    Right column -> past events #}
+        <div class="w-full md:w-9/12 mx-4 h-64">
+            <h3 class="text-gray-900 font-bold text-xl leading-8 my-1">Current Events</h3>
+            {% for event in user.events %}
+                <a href="{{ url_for('event.info', id = event.id) }}">
+                    <div class="bg-white shadow-md rounded my-6 hover:bg-gray-100">
+                        <div class="flex justify-between items-center px-6 py-3">
+                            <h3 class="text-gray-700 font-semibold text-lg">{{ event.name }}</h3>
+                            <span class="text-gray-500 text-sm">{{ event.tags }}</span>
+                        </div>
+                        <div class="px-6 py-4">
+                            <p class="text-gray-700 text-base">{{ event.description }}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
         </div>
     </div>
 
-<h3>{{ user.email }} </h3>
-<h3> Events they've created: </h3>
-    {% for event in user.events %}
- <ol>
-    <!--ordered list chronilogically of the events that the user organized-->
-    <li>{{ event.name }}</li>
-
-    {% endfor %}
-</ol>
-   
 {% endblock %}

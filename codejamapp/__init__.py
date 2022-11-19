@@ -22,6 +22,7 @@ def create_app():
     @app.route('/')
     def index():
         return render_template('index.html')
+
     app.add_url_rule('/', 'index')
 
     from . import auth

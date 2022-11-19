@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<h3>{{ user.email }} </h3>
+<p> {{ template_description | "Member of " + template_description + "."}}</p>
+<h3> Events they've created: </h3>
+    {% for event in user.events %}
+ <ol>
+    <!--ordered list chronilogically of the events that the user organized-->
+    <li>{{ event }}</li>
+
+    {% endfor %}
+</ol>
+   
+{% endblock %}

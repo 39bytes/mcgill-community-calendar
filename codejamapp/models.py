@@ -7,14 +7,14 @@ from codejamapp.database import Base
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
-    username = Column(String(100), unique=True, nullable=False)
+    name = Column(String(100), unique=True, nullable=False)
     email = Column(String(50), unique = True, nullable = False)
     password = Column(String(256), nullable = False)
 
     events = relationship("Event", back_populates="creator")
 
-    def __init__(self, username: str, email: str, password: str):
-        self.username = username
+    def __init__(self, name: str, email: str, password: str):
+        self.name = name
         self.email = email
         self.password = password
 

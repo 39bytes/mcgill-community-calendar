@@ -54,11 +54,6 @@
         </div>
         </div>
     </nav>
-    <div>
-        {% for message in get_flashed_messages() %}
-            <div>{{ message }}</div>
-        {% endfor%}
-    </div>
     {% block content %}
     {% endblock %}
     </body>

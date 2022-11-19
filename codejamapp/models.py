@@ -38,3 +38,12 @@ class Event(Base):
         self.start_time = start_time
         self.tags = tags
 
+VALID_TAGS = {
+    "Club" : "bg-red-500",
+    "Workshop": "bg-green-500",
+    "Sports": "bg-blue-500",
+    "Fundraiser": "bg-pink-500",
+    "Volunteer": "bg-yellow-500",
+    "Other": "bg-purple-500"
+}
+

@@ -14,5 +14,5 @@ bp = Blueprint('user', __name__, url_prefix="/user")
 @bp.route("/<int:id>/")
 def user(id):
     user = User.query.get(id)
-    return render_template('user/', user=user)
+    return render_template('user.html', user=user)
 

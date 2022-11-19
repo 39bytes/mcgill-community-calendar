@@ -30,4 +30,7 @@ def create_app():
     from . import event
     app.register_blueprint(event.bp)
 
+    from . import user
+    app.register_blueprint(user.bp)
+
     return app

@@ -2,8 +2,12 @@
 
 {% block content %}
 <h1>{{ event.name }}</h1>
+<div>Created by {{ event.creator.email }} ({{ event.creator_id}})</div>
 <p class="text-red-600">{{ event.location }}</p>
 <p>Start time: {{ event.start_time.strftime('%Y-%m-%d %H:%M') }}</p>
 <br>
 <p>{{ event.description }}</p>
+{% if g.user.id == event.creator_id %}
+<a href="{{ url_for('event.edit', id=event.id) }}">Edit</a>
+{% endif %}
 {% endblock %}

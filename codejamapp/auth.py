@@ -18,14 +18,6 @@ def register():
         email = request.form['email']
         password = request.form['password']
         error = None
-
-        # Input validation
-        if not email:
-            error = "Email is required."
-        elif not password:
-            error = "Password is required."
-        elif not name:
-            error = "Name is required."
         
         if error is None:
             try:
@@ -62,11 +54,9 @@ def login():
         if error is None:
             user = User.query.filter(User.email == email).first()
             
-            if user is None:
-                error = "User with that email does not exist."
-            elif not check_password_hash(user.password, password):
-                error = "Incorrect password."
-        
+            if user is None or not check_password_hash(user.password, password):
+                error = "Incorrect credentials"
+
         # User logged in successfully
         if error is None:
             session.clear()

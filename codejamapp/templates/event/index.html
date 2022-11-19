@@ -2,28 +2,42 @@
 
 {% block content %}
 <!-- <div class="bg-red-400 rounded-md py-2 w-11/12 mx-auto"> -->
+<!-- Quick hack to ensure tailwind imports the classes for the tag colors -->
+<div class="bg-red-500 bg-green-500 bg-blue-500 bg-pink-500 bg-yellow-500 bg-purple-500"></div>
 <div class="py-6 h-screen mx-20">
     <h1 class="text-2xl font-bold">Events happening soon!</h1>
     <div>
         <h2 class="text-lg">
             Filter tags...
         </h2>
-        <div class="border border-black w-auto h-12">
-
+        <div class="w-auto h-12">
+            {% for tag, color in valid_tags.items() %}
+            <a href="{{ url_for('event.index', filtered_tags=(filtered_tags + (tag if filtered_tags == '' else ',' + tag)) 
+                    if tag not in filtered_tags 
+                    else filtered_tags|replace(tag, '')|str_strip(',')) }}" class="inline-block">
+                <div class="rounded-xl border border-gray-500 {{'bg-red-500 hover:bg-red-700 text-white' if tag in filtered_tags else 'hover:bg-gray-200' }} transition duration-100 text-sm px-2 flex flex-row align-middle">
+                    <div class="rounded-3xl h-2 px-1 py-0.5 my-auto mr-1 {{ color }}"></div>
+                    <div>{{tag}}</div>
+                </div>
+            </a>
+            {% endfor %}
         </div>
     </div>
-    <div class="rounded py-2 grid grid-cols-7 grid-rows-2 w-auto h-96 gap-2">
+    <div class="rounded py-2 grid grid-cols-7 grid-rows-2 w-auto h-[28rem] gap-2">
         {% for i in range(0, 14) %}
             <div class="rounded border {{ 'bg-gray-300' if i < offset else 'bg-gray-50' }} border-gray-300 px-2 py-1">
                 <div>
                     <div class="rounded-3xl border {{'border-red-500' if i == offset else 'border-gray-400'}} w-7 h-7 text-center">
                         {{current_day - offset + i}}
                     </div>
-                    {% for event in events[i] %}
                     <div>
-                        {{event.name}}
-                    </div>
+                    {% for event in events[i] %}
+                        <a href="{{ url_for('event.info', id=event.id) }}" 
+                           class="block bg-gray-200 rounded-md mt-1 hover:opacity-80">
+                            {{event.name}}
+                        </a>
                     {% endfor %}
+                    </div>
                 </div>
             </div>
         {% endfor %}

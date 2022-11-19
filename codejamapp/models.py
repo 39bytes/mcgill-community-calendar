@@ -23,28 +23,16 @@ class Event(Base):
     description = Column(Text)
     location = Column(String(256))
     start_time = Column(DateTime(timezone=True))
-    end_time = Column(DateTime(timezone=True))
     tags = Column(Text, nullable=True) # A comma separated list of tags
     creator_id = Column(Integer, ForeignKey("users.id"))
     creator = relationship("User", back_populates="events")
 
-    def update(self, name: str, creator_id: int, description: str, location: str,
-                 start_time: datetime.datetime, end_time: datetime.datetime, tags=""):
-        self.name = name
-        self.creator_id = creator_id
-        self.description = description
-        self.location = location
-        self.start_time = start_time,
-        self.end_time = end_time
-        self.tags = tags
-
     def __init__(self, name: str, creator_id: int, description: str, location: str, 
-                 start_time: datetime.datetime, end_time: datetime.datetime, tags=""):
+                 start_time: datetime.datetime, tags=""):
         self.name = name
         self.creator_id = creator_id
         self.description = description
         self.location = location
         self.start_time = start_time
-        self.end_time = end_time
         self.tags = tags
 

@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import os
 
+
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
@@ -26,9 +27,7 @@ def create_app():
     from . import auth
     app.register_blueprint(auth.bp)
 
-    # Temporary app to render create event html
-    @app.route('/create')
-    def create():
-        return render_template('events/create.html')
+    from . import event
+    app.register_blueprint(event.bp)
 
     return app

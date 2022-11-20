@@ -7,7 +7,7 @@
         {#    Left column -> picture, name, email #}
         <div class="w-full md:w-3/12 border-r-2">
             <div class="flex justify-center">
-                <div class="w-40 h-40 bg-gray-500 rounded-full"></div>
+                <img class="rounded-full object-cover w-48 h-48" src="{{ url_for('send_uploaded_file', filename=user.pfp_filename) }}">
             </div>
             <div class="w-full flex justify-center">
                 <h1 class="text-gray-900 font-bold text-3xl leading-8 my-1 mt-4">{{ user.name }}</h1>

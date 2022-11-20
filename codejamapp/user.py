@@ -1,7 +1,8 @@
-from flask import (
-    Blueprint, render_template
-)
+import os
 
+from flask import (
+    Blueprint, render_template, current_app
+)
 from codejamapp.models import User
 
 from werkzeug.security import generate_password_hash, check_password_hash

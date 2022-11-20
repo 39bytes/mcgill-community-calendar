@@ -8,15 +8,17 @@ class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     name = Column(String(100), unique=True, nullable=False)
-    email = Column(String(50), unique = True, nullable = False)
-    password = Column(String(256), nullable = False)
+    email = Column(String(50), unique=True, nullable=False)
+    password = Column(String(256), nullable=False)
+    pfp_filename = Column(String(256), nullable=True)
 
     events = relationship("Event", back_populates="creator")
 
-    def __init__(self, name: str, email: str, password: str):
+    def __init__(self, name: str, email: str, password: str, pfp_filename=""):
         self.name = name
         self.email = email
         self.password = password
+        self.pfp_filename = pfp_filename
 
 class Event(Base):
     __tablename__ = "events"
@@ -28,15 +30,17 @@ class Event(Base):
     tags = Column(Text, nullable=True) # A comma separated list of tags
     creator_id = Column(Integer, ForeignKey("users.id"))
     creator = relationship("User", back_populates="events")
+    image_filename = Column(String(256))
 
     def __init__(self, name: str, creator_id: int, description: str, location: str, 
-                 start_time: datetime.datetime, tags=""):
+                 start_time: datetime.datetime, tags="", image_filename=""):
         self.name = name
         self.creator_id = creator_id
         self.description = description
         self.location = location
         self.start_time = start_time
         self.tags = tags
+        self.image_filename=image_filename
 
 VALID_TAGS = {
     "Club" : "bg-red-500",

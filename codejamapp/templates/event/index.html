@@ -30,7 +30,7 @@
         </div>
         <div class="rounded py-1 grid grid-cols-7 grid-rows-2 w-auto h-[28rem] gap-2">
             {% for i in range(0, 14) %}
-                <div class="overflow-y-scroll rounded border {{ 'bg-gray-300' if i < offset.days else 'bg-gray-50' }} {{ 'border-red-500' if i == offset.days else 'border-gray-300' }} px-2 py-1">
+                <div class="overflow-y-scroll rounded {{ 'border-2' if i == offset.days else 'border' }} {{ 'bg-gray-300' if i < offset.days else 'bg-gray-50' }} {{ 'border-red-500' if i == offset.days else 'border-gray-300' }} px-2 py-1">
                     <div>
                         <div class="rounded-3xl w-5 h-5 text-center">
                             {{ ((current_day - offset)|add_days(i)).day }}

@@ -26,7 +26,7 @@
             <br>
             <p><span class="font-bold">Location:</span> {{ event.location }}</p>
             <p><span class="font-bold">Start time:</span> {{ event.start_time.strftime('%B %d, %Y at %H:%M') }}</p>
-            <div class="mt-3 mb-7 break-words event-desc">{{ event.description|markdown }}</div>
+            <div class="mt-3 mb-7 break-words whitespace-pre-wrap event-desc">{{ event.description|markdown }}</div>
 
             {% if event.image_filename %}
                 <img class="w-auto" src="{{ url_for('send_uploaded_file', filename=event.image_filename) }}">

@@ -15,7 +15,7 @@ Base.query = db_session.query_property()
 
 def init_db():
     """Initializes the database."""
-    import codejamapp.models
+    import community_calendar.models
     Base.metadata.create_all(bind=engine)
 
 def close_db(e=None):

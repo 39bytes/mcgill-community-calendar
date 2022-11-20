@@ -1,35 +1,43 @@
 import os
 from flask import (Blueprint, request, url_for, redirect, render_template, flash, g, abort, current_app)
-from codejamapp.models import Event
-from codejamapp import auth
-from codejamapp.database import db_session
+from community_calendar.models import Event
+from community_calendar import auth
+from community_calendar.database import db_session
 from sqlalchemy import exc
 from datetime import datetime, timedelta
 from typing import List
-from codejamapp.models import VALID_TAGS
-from codejamapp.utils import allowed_file, append_timestamp_and_hash
+from community_calendar.models import VALID_TAGS
+from community_calendar.utils import allowed_file, append_timestamp_and_hash
 
 bp = Blueprint('event', __name__)
 
 @bp.route('/')
 def index():
     filtered_tags = request.args.get("filtered_tags")
+
     if filtered_tags is None:
         filtered_tags = ""
+
+    page = request.args.get("page")
+    if page is None:
+        page = 0
+    page = int(page)
+
     tags_list = filtered_tags.split(",")
-    now = datetime.now()
-    
-    offset = now.isoweekday() % 7 # Sunday = 0, Monday = 1, ... Saturday = 6
-    events = Event.query.filter(Event.start_time < now + timedelta(days=14-offset)) \
-                        .filter(Event.start_time > now - timedelta(days=offset)) \
+    start_date = datetime.now() + timedelta(days=14*page)
+
+    offset = start_date.isoweekday() % 7 # Sunday = 0, Monday = 1, ... Saturday = 6
+    start_date = start_date - timedelta(days=offset)
+    events = Event.query.filter(Event.start_time < start_date + timedelta(days=14)) \
+                        .filter(Event.start_time > start_date) \
                         .order_by(Event.start_time).all()
 
     # Gets events where tags with any of the filtered tags
     events = [event for event in events if any(tag in event.tags for tag in tags_list)]
-    events = group_by_day(events, now - timedelta(days=offset))
+    events = group_by_day(events, start_date - timedelta(days=offset))
     return render_template('event/index.html', 
             filtered_tags=filtered_tags, valid_tags=VALID_TAGS, events=events, 
-            offset=timedelta(days=offset), current_day=now)
+            offset=timedelta(days=offset), current_day=start_date)
 
 @bp.route("/<int:id>/info", methods=("GET",))
 def info(id):

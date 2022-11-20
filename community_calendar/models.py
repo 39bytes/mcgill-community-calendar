@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 import datetime
 from sqlalchemy.orm import relationship
-from codejamapp.database import Base
+from community_calendar.database import Base
 
 
 class User(Base):
@@ -13,7 +13,7 @@ class User(Base):
     description = Column(Text, nullable=True)
     pfp_filename = Column(String(256), nullable=True)
 
-    events = relationship("Event", back_populates="creator")
+    events = relationship("Event", back_populates="creator", order_by="Event.start_time")
 
     def __init__(self, name: str, email: str, password: str, pfp_filename="" , description=""):
         self.name = name

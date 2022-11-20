@@ -39,7 +39,7 @@
         {#    Right column -> past events #}
         <div class="w-full md:w-9/12 mx-4 h-64">
             <h3 class="text-gray-900 font-bold text-xl leading-8 my-1">Current Events</h3>
-            {% for event in user.events %}
+            {% for event in events %}
                 <a href="{{ url_for('event.info', id = event.id) }}">
                     <div class="bg-white shadow-md rounded my-6 hover:bg-gray-100">
                         <div class="flex justify-between items-center px-6 py-3">

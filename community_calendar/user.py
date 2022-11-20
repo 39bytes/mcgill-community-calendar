@@ -8,6 +8,7 @@ from community_calendar.database import db_session
 from community_calendar.models import User
 from community_calendar.utils import append_timestamp_and_hash
 import os
+from datetime import datetime
 
 bp = Blueprint('user', __name__, url_prefix="/user")
 
@@ -16,7 +17,9 @@ def user(id):
     user = User.query.get(id)
     if user is None:
         abort(404)
-    return render_template('user/user.html', user=user)
+    now = datetime.now()
+    events = [event for event in user.events if event.start_time > now]
+    return render_template('user/user.html', user=user, events=events)
 
 @bp.route("/<int:id>/edit", methods=("GET", "POST"))
 @auth.login_required

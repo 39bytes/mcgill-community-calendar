@@ -4,10 +4,20 @@
     <div class="flex justify-center">
         <div class="md:w-6/12 w-10/12 mx-20 shadow-md px-10 py-10 mt-14 rounded">
             <div>
-                <a onclick="history.back()" class="hover:cursor-pointer">
-                    <img src="{{ url_for('static', filename='images/arrow.png') }}"
+                <a id="back-arrow" class="hover:cursor-pointer">
+                    <img src="{{ url_for('static', filename='images/leftarrow.png') }}"
                          class="h-3 mr-3 sm:h-5 hover:opacity-70">
                 </a>
+                <script>
+                    const url = new URL(document.referrer, window.location.origin);
+                    const backArrow = document.getElementById('back-arrow')
+                    if (url.pathname === '/create' || url.pathname === '/'){
+                        backArrow.addEventListener("click", () => window.location.href = '/');
+                    }
+                    else{
+                        backArrow.addEventListener("click", () => history.back());
+                    }
+                </script>
             </div>
 
             <h1 class="text-center text-2xl font-medium break-words">{{ event.name }}</h1>

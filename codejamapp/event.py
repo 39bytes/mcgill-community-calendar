@@ -83,8 +83,11 @@ def create():
             error = "A start time is required"
         elif not description:
             error = "A description is required"
-        
+
         start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
+
+        if datetime.now() > start_time:
+            error = "Start time must be in the future."
 
         if error is None:
             try:

@@ -29,7 +29,7 @@
                     </div>
                     <div>
                     {% for event in events[i] %}
-                        <a href="{{ url_for('event.info', id=event.id) }}" class="rounded-xl mt-1 border transition duration-100 text-sm px-2 flex flex-row align-middle">
+                        <a href="{{ url_for('event.info', id=event.id) }}" class="rounded-xl mt-1 border hover:bg-gray-100 transition duration-100 text-sm px-2 flex flex-row align-middle">
                             <div class="rounded-3xl h-2 px-1 py-0.5 my-auto mr-1 {{ valid_tags[event.tags.split(',')[0] if event.tags else 'bg-gray-300'] }}"></div>
                             <div class="block rounded-md hover:opacity-80">{{event.name[:13] + ("..." if event.name|length > 15 else "")}}</div>
                         </a>

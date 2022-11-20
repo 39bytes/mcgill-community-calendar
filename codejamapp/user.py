@@ -2,7 +2,7 @@ from flask import (Blueprint, render_template, request, redirect, url_for, abort
 from codejamapp import auth
 
 from flask import (
-    Blueprint, render_template, current_app
+    Blueprint, render_template, current_app, g
 )
 from codejamapp.database import db_session
 from codejamapp.models import User
@@ -20,6 +20,8 @@ def user(id):
 @auth.login_required
 def edit(id):
     user = User.query.get(id)
+    if g.user.id != user.id:
+        abort(403)
 
     if request.method == "POST":
         name = request.form["name"]

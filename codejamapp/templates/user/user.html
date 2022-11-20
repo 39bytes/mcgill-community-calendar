@@ -17,7 +17,7 @@
             </div>
             <div class="flex flex-col justify-center">
                 <h1 class="text-gray-900 text-center font-bold text-3xl leading-8 my-1 mt-4">{{ user.name }}</h1>
-                {% if g.user %}
+                {% if g.user.id == user.id %}
                 <a href="{{ url_for('user.edit', id=user.id) }}" class="mx-auto">
                     <img src="{{ url_for('static', filename='images/pencil.png') }}"
                          class="h-3 mr-3 sm:h-9 hover:opacity-70 mt-1">

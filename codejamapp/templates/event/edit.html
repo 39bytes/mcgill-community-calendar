@@ -34,6 +34,15 @@
             <textarea id="description" name="description"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">{{ event.description }}</textarea>
         </div>  
+
+        <script>
+            textarea = document.querySelector("#description");
+            textarea.addEventListener("input", autoresize, false);
+            function autoresize(){
+              this.style.height="auto";
+              this.style.height = this.scrollHeight + 'px';
+            }
+          </script>
         
         <div class="mb-6">
             <label for="eventImage" class="cursor-pointer mb-2 text-sm font-medium text-gray-900">
@@ -43,14 +52,14 @@
             </label>
         </div>
         
-          <script>
+        <script>
             let input = document.getElementById("eventImage");
             let imageName = document.getElementById("imageName");
             input.addEventListener("change", ()=>{
               let eventImage = document.querySelector("input[type=file]").files[0];
               imageName.innerHTML = eventImage.name;
             })
-          </script>
+        </script>
 
         <button type="submit"
                 class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">

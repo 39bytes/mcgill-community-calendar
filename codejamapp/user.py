@@ -1,14 +1,9 @@
 from flask import (Blueprint, render_template, request, redirect, url_for)
 from codejamapp import auth
-import os
 
 from flask import (
     Blueprint, render_template, current_app
 )
-from codejamapp.models import User
-
-from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import exc
 from codejamapp.database import db_session
 from codejamapp.models import User
 

@@ -15,23 +15,24 @@
                          src="{{ url_for('static', filename='Images/bird.jpeg') }}">
                 {% endif %}
             </div>
-            <div class="w-full flex justify-center">
-                <h1 class="text-gray-900 font-bold text-3xl leading-8 my-1 mt-4">{{ user.name }}</h1>
+            <div class="w-full flex flex-col justify-center">
+                <h1 class="text-gray-900 font-bold text-3xl leading-8 my-1 mt-4 ">{{ user.name }}</h1>
                 {% if g.user %}
-                    <a href="{{ url_for('user.edit', id=user.id) }}">
-                        <img src="{{ url_for('static', filename='images/pencil.png') }}"
-                             class="h-3 mr-3 sm:h-9 hover:opacity-70 mt-4">
-                    </a>
-                {% endif %}
+                <a href="{{ url_for('user.edit', id=user.id) }}">
+                    <img src="{{ url_for('static', filename='images/pencil.png') }}"
+                         class="h-3 mr-3 sm:h-9 hover:opacity-70 mt-4">
+                </a>
+            {% endif %}
             </div>
+
             <div class="w-full flex justify-center">
                 <a href="mailto: {{ user.email }} "
                    class="break-all text-gray-900 font-bold text-xl leading-8 m-4 underline">{{ user.email }}</a>
             </div>
-            {% if description %}
-            <div>
-                <p class="text-gray-900 text-xl leading-8 m-4">{{ user.description }}</p>
-            </div>
+            {% if description != "" %}
+                <div>
+                    <p class="text-gray-900 text-xl leading-8 m-4">{{ user.description }}</p>
+                </div>
             {% endif %}
         </div>
 

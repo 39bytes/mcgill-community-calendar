@@ -36,7 +36,7 @@ def index():
     events = [event for event in events if any(tag in event.tags for tag in tags_list)]
     events = group_by_day(events, start_date - timedelta(days=offset))
     return render_template('event/index.html', 
-            filtered_tags=filtered_tags, valid_tags=VALID_TAGS, events=events, 
+            filtered_tags=filtered_tags, valid_tags=VALID_TAGS, events=events,
             offset=timedelta(days=offset), current_day=start_date)
 
 @bp.route("/<int:id>/info", methods=("GET",))

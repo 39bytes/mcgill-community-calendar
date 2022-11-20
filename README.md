@@ -1,3 +1,9 @@
+## McGill Community Calendar
+
+![Home](https://i.imgur.com/L4Z1mYV.png)
+![User](https://i.imgur.com/aYi5H2R.png)
+![Event](https://i.imgur.com/15jHf0r.png)
+
 ## Inspiration
 
 We wanted to create a centralized event calendar to make it easier for McGill students to know about everything happening soon on campus. The current problem is that students have to follow dozens of accounts on social media to be in the loop, but this clutters their feeds. With a single app that allows anyone to see everything happening soon at McGill, students can more easily get involved in the community, and school organizations or clubs can have greater reach.

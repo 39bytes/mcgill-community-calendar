@@ -2,33 +2,38 @@
 
 {% block content %}
 
-{#    Big div for both columns#}
+    {#    Big div for both columns#}
     <div class="md:flex no-wrap h-[80vh] mt-10">
         {#    Left column -> picture, name, email #}
         <div class="w-full md:w-3/12 border-r-2">
             <div class="flex justify-center">
                 {% if user.pfp_filename %}
-                <img class="rounded-full object-cover w-48 h-48" src="{{ url_for('send_uploaded_file', filename=user.pfp_filename) }}">
+                    <img class="rounded-full object-cover w-48 h-48"
+                         src="{{ url_for('send_uploaded_file', filename=user.pfp_filename) }}">
                 {% else %}
-                <img class="rounded-full border border-gray-200 object-cover w-48 h-48" src="{{ url_for('static', filename='Images/bird.jpeg')}}">
+                    <img class="rounded-full border border-gray-200 object-cover w-48 h-48"
+                         src="{{ url_for('static', filename='Images/bird.jpeg') }}">
                 {% endif %}
             </div>
-            <div class="w-full flex justify-center">
-                <h1 class="text-gray-900 font-bold text-3xl leading-8 my-1 mt-4">{{ user.name }}</h1>
+            <div class="flex flex-col justify-center">
+                <h1 class="text-gray-900 text-center font-bold text-3xl leading-8 my-1 mt-4">{{ user.name }}</h1>
                 {% if g.user %}
-                <a href="{{ url_for('user.edit', id=user.id) }}">
+                <a href="{{ url_for('user.edit', id=user.id) }}" class="mx-auto">
                     <img src="{{ url_for('static', filename='images/pencil.png') }}"
-                         class="h-3 mr-3 sm:h-9 hover:opacity-70 mt-4">
+                         class="h-3 mr-3 sm:h-9 hover:opacity-70 mt-1">
                 </a>
-                {% endif %}
+            {% endif %}
             </div>
+
             <div class="w-full flex justify-center">
                 <a href="mailto: {{ user.email }} "
                    class="break-all text-gray-900 font-bold text-xl leading-8 m-4 underline">{{ user.email }}</a>
             </div>
-            <div>
-                <p class="text-gray-900 text-xl leading-8 m-4">{{ user.description }}</p>
-            </div>
+            {% if description != "" %}
+                <div>
+                    <p class="text-gray-900 text-xl leading-8 m-4">{{ user.description }}</p>
+                </div>
+            {% endif %}
         </div>
 
         {#    Right column -> past events #}
@@ -41,7 +46,7 @@
                             <h3 class="text-gray-700 font-semibold text-lg">{{ event.name }}</h3>
                             <span class="text-gray-500 text-sm">{{ event.tags }}</span>
                         </div>
-                        <div class="px-6"><b>Start time:</b> {{ event.start_time.strftime('%B %d, %Y at %H:%M')}}</div>
+                        <div class="px-6"><b>Start time:</b> {{ event.start_time.strftime('%B %d, %Y at %H:%M') }}</div>
                         <div class="px-6 py-4">
                             <p class="text-gray-700 text-base">{{ event.description }}</p>
                         </div>

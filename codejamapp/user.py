@@ -1,14 +1,9 @@
-from flask import (Blueprint, render_template, request, redirect, url_for)
+from flask import (Blueprint, render_template, request, redirect, url_for, abort)
 from codejamapp import auth
-import os
 
 from flask import (
     Blueprint, render_template, current_app
 )
-from codejamapp.models import User
-
-from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import exc
 from codejamapp.database import db_session
 from codejamapp.models import User
 from codejamapp.utils import append_timestamp_and_hash
@@ -18,6 +13,8 @@ bp = Blueprint('user', __name__, url_prefix="/user")
 @bp.route("/<int:id>/")
 def user(id):
     user = User.query.get(id)
+    if user is None:
+        abort(404)
     return render_template('user/user.html', user=user)
 
 @bp.route("/<int:id>/edit", methods=("GET", "POST"))

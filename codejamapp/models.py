@@ -15,11 +15,12 @@ class User(Base):
 
     events = relationship("Event", back_populates="creator")
 
-    def __init__(self, name: str, email: str, password: str, pfp_filename=""):
+    def __init__(self, name: str, email: str, password: str, pfp_filename="" , description=""):
         self.name = name
         self.email = email
         self.password = password
         self.pfp_filename = pfp_filename
+        self.description = description
 
 class Event(Base):
     __tablename__ = "events"
@@ -33,7 +34,7 @@ class Event(Base):
     creator = relationship("User", back_populates="events")
     image_filename = Column(String(256))
 
-    def __init__(self, name: str, creator_id: int, description: str, location: str, 
+    def __init__(self, name: str, creator_id: int, description: str, location: str,
                  start_time: datetime.datetime, tags="", image_filename=""):
         self.name = name
         self.creator_id = creator_id

@@ -35,5 +35,5 @@ We learned a lot about the general process of developing a full stack app. In pa
 ## Credits
 
 Arrow icon: [source](https://uxwing.com/back-arrow-icon/)
-Pencil icon: [source]
+Pencil icon: [source](https://icon-icons.com/icon/edit-pencil/120034)
 McGill bird logo: @mcgillu on Twitter

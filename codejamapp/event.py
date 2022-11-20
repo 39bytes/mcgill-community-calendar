@@ -28,7 +28,7 @@ def index():
     print(VALID_TAGS)
     return render_template('event/index.html', 
             filtered_tags=filtered_tags, valid_tags=VALID_TAGS, events=events, 
-            offset=offset, current_day=now.day)
+            offset=timedelta(days=offset), current_day=now)
 
 @bp.route("/<int:id>/info", methods=("GET",))
 def info(id):
@@ -132,7 +132,10 @@ def group_by_day(events: List[Event], start_day):
     grouped.append(current_day_events)
     grouped += [[]] * (14 - len(grouped))
     return grouped
-    
+
+@bp.app_template_filter()
+def add_days(date: datetime, days: int):
+    return date + timedelta(days=days)
     
 @bp.app_template_filter()
 def str_strip(s : str, strip_char: str):

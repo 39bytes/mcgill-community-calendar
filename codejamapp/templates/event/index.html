@@ -22,12 +22,12 @@
     </div>
     <div class="rounded py-1 grid grid-cols-7 grid-rows-2 w-auto h-[28rem] gap-2">
         {% for i in range(0, 14) %}
-            <div class="rounded border {{ 'bg-gray-300' if i < offset else 'bg-gray-50' }} border-gray-300 px-2 py-1">
+            <div class="overflow-y-scroll rounded border {{ 'bg-gray-300' if i < offset else 'bg-gray-50' }} border-gray-300 px-2 py-1">
                 <div>
                     <div class="rounded-3xl border {{'border-red-500' if i == offset else 'border-gray-400'}} w-7 h-7 text-center">
                         {{current_day - offset + i}}
                     </div>
-                    <div >
+                    <div>
                     {% for event in events[i] %}
                         <a href="{{ url_for('event.info', id=event.id) }}" class="rounded-xl mt-1 border transition duration-100 text-sm px-2 flex flex-row align-middle">
                             <div class="rounded-3xl h-2 px-1 py-0.5 my-auto mr-1 {{ valid_tags[event.tags.split(',')[0] if event.tags else 'bg-gray-300'] }}"></div>

@@ -5,13 +5,13 @@
     <div class="flex justify-center">
         <div class="md:w-6/12 w-10/12 mx-20 shadow-md px-10 py-10 mt-14 rounded">
 
-            <h1 class="text-center text-2xl font-medium">{{ event.name }}</h1>
+            <h1 class="text-center text-2xl font-medium break-words">{{ event.name }}</h1>
             <p class="text-center">Hosted by <a href="{{ url_for('user.user', id=event.creator.id) }}"
                                                 class="underline hover:text-red-600">{{ event.creator.name }}</a></p>
             <br>
             <p><span class="font-bold">Location:</span> {{ event.location }}</p>
             <p><span class="font-bold">Start time:</span> {{ event.start_time.strftime('%Y-%m-%d %H:%M') }}</p>
-            <p class="mb-7">{{ event.description }}</p>
+            <p class="mt-3 mb-7 break-words">{{ event.description }}</p>
             <div class="mb-7">
             {% for tag in event.tags.split(',') %}
             <span class="text-gray-400">#{{tag}}</span>

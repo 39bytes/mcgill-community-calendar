@@ -7,6 +7,7 @@ from flask import (
 from codejamapp.database import db_session
 from codejamapp.models import User
 from codejamapp.utils import append_timestamp_and_hash
+import os
 
 bp = Blueprint('user', __name__, url_prefix="/user")
 

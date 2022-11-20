@@ -7,7 +7,11 @@
         {#    Left column -> picture, name, email #}
         <div class="w-full md:w-3/12 border-r-2">
             <div class="flex justify-center">
+                {% if user.pfp_filename %}
                 <img class="rounded-full object-cover w-48 h-48" src="{{ url_for('send_uploaded_file', filename=user.pfp_filename) }}">
+                {% else %}
+                <img class="rounded-full border border-gray-200 object-cover w-48 h-48" src="{{ url_for('static', filename='Images/bird.jpeg')}}">
+                {% endif %}
             </div>
             <div class="w-full flex justify-center">
                 <h1 class="text-gray-900 font-bold text-3xl leading-8 my-1 mt-4">{{ user.name }}</h1>
@@ -27,6 +31,7 @@
                             <h3 class="text-gray-700 font-semibold text-lg">{{ event.name }}</h3>
                             <span class="text-gray-500 text-sm">{{ event.tags }}</span>
                         </div>
+                        <div class="px-6"><b>Start time:</b> {{ event.start_time.strftime('%B %d, %Y at %H:%M')}}</div>
                         <div class="px-6 py-4">
                             <p class="text-gray-700 text-base">{{ event.description }}</p>
                         </div>

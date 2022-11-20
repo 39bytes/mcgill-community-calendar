@@ -26,7 +26,6 @@
             {% if g.user.id == event.creator_id %}
                 <a href="{{ url_for('event.edit', id=event.id) }}"
                    class="mr-2 py-2 px-4 bg-gray-900 text-white rounded hover:bg-gray-600 transition duration-300">Edit</a>
-                {#                <a href="#" class="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-800 transition duration-300">Delete</a>#}
                 <button class="mr-2 py-1.5 px-4 bg-red-600 text-white rounded hover:bg-red-800 transition duration-300"
                         type="button" data-modal-toggle="popup-modal">
                     Delete

@@ -18,7 +18,7 @@ def user(id):
     if user is None:
         abort(404)
     now = datetime.now()
-    events = [event for event in user.events if event.start_time > now]
+    events = [event for event in user.events if event.start_time.date() >= now.date()]
     return render_template('user/user.html', user=user, events=events)
 
 @bp.route("/<int:id>/edit", methods=("GET", "POST"))

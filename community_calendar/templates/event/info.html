@@ -11,7 +11,7 @@
                 <script>
                     const url = new URL(document.referrer, window.location.origin);
                     const backArrow = document.getElementById('back-arrow')
-                    if (url.pathname === '/create' || url.pathname.includes('/edit') || url.pathname === '/'){
+                    if (url.pathname === '/create' || url.pathname.includes('/edit')){
                         backArrow.addEventListener("click", () => window.location.href = '/');
                     }
                     else{

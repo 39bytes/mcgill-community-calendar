@@ -43,7 +43,7 @@
         </div>
         <div class="rounded py-1 grid grid-cols-7 grid-rows-2 w-auto h-[28rem] gap-2">
             {% for i in range(0, 14) %}
-                <div class="overflow-y-scroll rounded {{ 'border-2 border-red-500' if i == offset.days and (not request.args.get('page') or request.args.get('page') == '0') else 'border border-gray-300' }} 
+                <div class="overflow-y-scroll overflow-x-hidden rounded {{ 'border-2 border-red-500' if i == offset.days and (not request.args.get('page') or request.args.get('page') == '0') else 'border border-gray-300' }} 
                                                       {{ 'bg-gray-300' if i < offset.days and (not request.args.get('page') or request.args.get('page') == '0') or request.args.get('page')|int < 0 else 'bg-gray-50' }} 
                                                       px-2 py-1">
                     <div>
@@ -53,7 +53,7 @@
                         <div>
                             {% for event in events[i] %}
                                 <a href="{{ url_for('event.info', id=event.id) }}"
-                                   class="rounded-xl mt-1 border transition duration-100 text-sm px-2 flex flex-row align-middle">
+                                   class="overflow-hidden rounded-xl mt-1 border hover:bg-gray-100 transition duration-100 text-sm px-2 flex flex-row align-middle">
                                     <div class="rounded-3xl h-2 px-1 py-0.5 my-auto mr-1 {{ valid_tags[event.tags.split(',')[0] if event.tags else 'bg-gray-300'] }}"></div>
                                     <div class="block rounded-md hover:opacity-80">{{ event.name[:20] + ("..." if event.name|length > 20 else "") }}</div>
                                 </a>

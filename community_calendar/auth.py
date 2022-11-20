@@ -5,12 +5,12 @@ from flask import (
 
 import os 
 
-from codejamapp.models import User
-from codejamapp.utils import allowed_file, append_timestamp_and_hash
+from community_calendar.models import User
+from community_calendar.utils import allowed_file, append_timestamp_and_hash
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import exc
-from codejamapp.database import db_session
+from community_calendar.database import db_session
 
 bp = Blueprint('auth', __name__, url_prefix="/auth")
 

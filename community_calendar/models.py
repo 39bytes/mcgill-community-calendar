@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 import datetime
 from sqlalchemy.orm import relationship
-from codejamapp.database import Base
+from community_calendar.database import Base
 
 
 class User(Base):

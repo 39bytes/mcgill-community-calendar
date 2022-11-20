@@ -1,13 +1,13 @@
 import os
 from flask import (Blueprint, request, url_for, redirect, render_template, flash, g, abort, current_app)
-from codejamapp.models import Event
-from codejamapp import auth
-from codejamapp.database import db_session
+from community_calendar.models import Event
+from community_calendar import auth
+from community_calendar.database import db_session
 from sqlalchemy import exc
 from datetime import datetime, timedelta
 from typing import List
-from codejamapp.models import VALID_TAGS
-from codejamapp.utils import allowed_file, append_timestamp_and_hash
+from community_calendar.models import VALID_TAGS
+from community_calendar.utils import allowed_file, append_timestamp_and_hash
 
 bp = Blueprint('event', __name__)
 

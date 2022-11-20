@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .event-desc h1 {
+        font-size: 2em;
+    }
+
+    .event-desc h2 {
+        font-size: 1.5em;
+    }
+
+    .event-desc h3 {
+        font-size: 1.3em;
+    }
+
+    .event-desc h4 {
+        font-size: 1em;
+    }
+
+    .event-desc h5 {
+        font-size: 0.8em;
+    }
+
+    .event-desc h6 {
+        font-size: 0.7em;
+    }
+
+    .event-desc a {
+        text-decoration-line: underline;
+    }
+
+    .event-desc a:hover {
+        @apply hover:text-red-600
+    }
+}

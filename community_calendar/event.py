@@ -24,7 +24,7 @@ def index():
     page = int(page)
 
     tags_list = filtered_tags.split(",")
-    start_date = datetime.now() + timedelta(days=14*page)
+    start_date = datetime.now().date() + timedelta(days=14*page)
 
     offset = start_date.isoweekday() % 7 # Sunday = 0, Monday = 1, ... Saturday = 6
     start_date = start_date - timedelta(days=offset)

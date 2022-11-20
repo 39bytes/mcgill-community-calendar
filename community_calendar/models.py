@@ -48,7 +48,7 @@ VALID_TAGS = {
     "Club" : "bg-red-500",
     "Workshop": "bg-green-500",
     "Fundraiser": "bg-pink-500",
-    "Volunteer": "bg-yellow-500",
+    "Volunteer": "bg-yellow-300",
     "Science": "bg-blue-500",
     "Engineering": "bg-purple-500"
 }

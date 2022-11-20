@@ -16,7 +16,7 @@
                 {% endif %}
             </div>
             <div class="flex flex-col justify-center">
-                <h1 class="text-gray-900 text-center font-bold text-3xl leading-8 my-1 mt-4">{{ user.name }}</h1>
+                <h1 class="text-gray-900 text-center font-bold text-2xl leading-8 my-1 mt-4">{{ user.name }}</h1>
                 {% if g.user.id == user.id %}
                 <a href="{{ url_for('user.edit', id=user.id) }}" class="mx-auto">
                     <img src="{{ url_for('static', filename='images/pencil.png') }}"
@@ -27,7 +27,7 @@
 
             <div class="w-full flex justify-center">
                 <a href="mailto: {{ user.email }} "
-                   class="break-all text-gray-900 font-bold text-xl leading-8 m-4 underline">{{ user.email }}</a>
+                   class="break-all text-gray-900 font-bold text-base leading-8 m-4 underline">{{ user.email }}</a>
             </div>
             {% if description != "" %}
                 <div>

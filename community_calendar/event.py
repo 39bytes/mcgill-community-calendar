@@ -60,8 +60,8 @@ def edit(id):
         tags = request.form.getlist('tags[]')
         
         start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
-
-        if datetime.now() > start_time:
+        
+        if datetime.now().date() > start_time.date():
             error = "Start time must be in the future."
 
         if error is None:

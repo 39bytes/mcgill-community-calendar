@@ -13,11 +13,11 @@ Clubs/organizations can register and login to create events that will appear on 
 - User and event data is stored in an SQLite database using SQLAlchemy for the ORM.
 - Image data is stored in an uploads folder on the server.
 
-## Challenges we ran into
+### Challenges we ran into
 
 The main technical challenge was working with dates and times. It took a lot of bug fixing before finally getting it right. Processing image data was also challenging, Designing the main calendar was also a big challenge, but we are happy with the final result.
 
-## Accomplishments that we're proud of
+### Accomplishments that we're proud of
 
 We're proud of the overall design of the website, as well as the UX of the app.
 From a technical standpoint, our most proud features are the tag system for filtering, as well as pagination on the main calendar.
@@ -31,3 +31,9 @@ We learned a lot about the general process of developing a full stack app. In pa
 - Integrating McGill's authentication system into the app to restrict login to registered McGill student associations.
 - Add more tags to cover the range of different event types
 - Further improving the UX of the website
+
+## Credits
+
+Arrow icon: [source](https://uxwing.com/back-arrow-icon/)
+Pencil icon: [source]
+McGill bird logo: @mcgillu on Twitter

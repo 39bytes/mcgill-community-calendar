@@ -18,11 +18,11 @@
             <div class="flex flex-col justify-center">
                 <h1 class="text-gray-900 text-center font-bold text-2xl leading-8 my-1 mt-4">{{ user.name }}</h1>
                 {% if g.user.id == user.id %}
-                <a href="{{ url_for('user.edit', id=user.id) }}" class="mx-auto">
-                    <img src="{{ url_for('static', filename='images/pencil.png') }}"
-                         class="h-3 mr-3 sm:h-9 hover:opacity-70 mt-1">
-                </a>
-            {% endif %}
+                    <a href="{{ url_for('user.edit', id=user.id) }}" class="mx-auto">
+                        <img src="{{ url_for('static', filename='images/pencil.png') }}"
+                             class="h-3 mr-3 sm:h-9 hover:opacity-70 mt-1">
+                    </a>
+                {% endif %}
             </div>
 
             <div class="w-full flex justify-center">
@@ -39,21 +39,29 @@
         {#    Right column -> past events #}
         <div class="w-full md:w-9/12 mx-4 h-64">
             <h3 class="text-gray-900 font-bold text-xl leading-8 my-1">Current Events</h3>
-            {% for event in events %}
-                <a href="{{ url_for('event.info', id = event.id) }}">
-                    <div class="bg-white shadow-md rounded my-6 hover:bg-gray-100">
-                        <div class="flex justify-between items-center px-6 py-3">
-                            <h3 class="text-gray-700 font-semibold text-lg">{{ event.name }}</h3>
-                            <span class="text-gray-500 text-sm">{{ event.tags }}</span>
+            {% if not events %}
+                <div>
+                    <h2 class="text-gray-400 text-m leading-6 mt-14 text-center">This association does not currently have
+                        any events</h2>
+                </div>
+            {% else %}
+                {% for event in events %}
+                    <a href="{{ url_for('event.info', id = event.id) }}">
+                        <div class="bg-white shadow-md rounded my-6 hover:bg-gray-100">
+                            <div class="flex justify-between items-center px-6 py-3">
+                                <h3 class="text-gray-700 font-semibold text-lg">{{ event.name }}</h3>
+                                <span class="text-gray-500 text-sm">{{ event.tags }}</span>
+                            </div>
+                            <div class="px-6"><b>Location:</b> {{ event.location }}</div>
+                            <div class="px-6"><b>Start time:</b> {{ event.start_time.strftime('%B %d, %Y at %H:%M') }}
+                            </div>
+                            <div class="px-6 py-4">
+                                <!-- <p class="text-gray-700 text-base">{{ event.description }}</p> -->
+                            </div>
                         </div>
-                        <div class="px-6"><b>Location:</b> {{ event.location }}</div>
-                        <div class="px-6"><b>Start time:</b> {{ event.start_time.strftime('%B %d, %Y at %H:%M') }}</div>
-                        <div class="px-6 py-4">
-                            <!-- <p class="text-gray-700 text-base">{{ event.description }}</p> -->
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
+                    </a>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 

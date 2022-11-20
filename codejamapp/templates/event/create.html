@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="POST" class="mx-20 mt-6">
+<form method="POST" class="mx-20 mt-6" enctype="multipart/form-data">
   <div>
     <h1 class="class=block mb-2 font-medium text-gray-900 text-2xl">Create Event</h1>
   </div>
@@ -25,6 +25,16 @@
     <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
     <textarea id="description" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
   </div>
+
+  <script>
+    textarea = document.querySelector("#description");
+    textarea.addEventListener("input", autoresize, false);
+    function autoresize(){
+      this.style.height="auto";
+      this.style.height = this.scrollHeight + 'px';
+    }
+  </script>
+
   <div class="mb-6">
     <label for="tags" class="block mb-2 text-sm font-medium text-gray-900">Select tags...</label>
     <select multiple id="tags" name="tags[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">

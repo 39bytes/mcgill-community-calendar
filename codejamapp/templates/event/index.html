@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- <div class="bg-red-400 rounded-md py-2 w-11/12 mx-auto"> -->
 <!-- Quick hack to ensure tailwind imports the classes for the tag colors -->
 <div class="bg-red-500 bg-green-500 bg-blue-500 bg-pink-500 bg-yellow-500 bg-purple-500"></div>
 <div class="py-6 h-screen mx-20">
@@ -29,7 +28,7 @@
                     </div>
                     <div>
                     {% for event in events[i] %}
-                        <a href="{{ url_for('event.info', id=event.id) }}" class="rounded-xl mt-1 border transition duration-100 text-sm px-2 flex flex-row align-middle">
+                        <a href="{{ url_for('event.info', id=event.id) }}" class="rounded-xl mt-1 border hover:bg-gray-100 transition duration-100 text-sm px-2 flex flex-row align-middle">
                             <div class="rounded-3xl h-2 px-1 py-0.5 my-auto mr-1 {{ valid_tags[event.tags.split(',')[0] if event.tags else 'bg-gray-300'] }}"></div>
                             <div class="block rounded-md hover:opacity-80">{{event.name[:13] + ("..." if event.name|length > 15 else "")}}</div>
                         </a>
@@ -40,5 +39,4 @@
         {% endfor %}
     </div>
 </div>
-<!-- </div> -->
 {% endblock%}

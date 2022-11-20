@@ -22,8 +22,6 @@
             <!--If the user is logged in display create event and logout-->
             {% if g.user %}
             <li>
-                {# <a href="{{ url_for('event.create') }}" class="block py-2 pl-3 pr-4 text-gray-700 rounded transition duration-300 hover:text-red-600 md:hover:bg-transparent md:border-0 md:p-0">
-                Create Event</a> #}
                 <a href="{{ url_for('event.create') }}" class="block py-2 px-4 bg-red-600 text-white rounded hover:bg-red-800 transition duration-300">
                 Create Event</a>
             </li>
@@ -31,6 +29,16 @@
             <li class="flex items-center">
                 <a href="{{ url_for('auth.logout') }}" class="block leading-5 py-2 pl-3 pr-4 text-gray-700 rounded transition duration-300 hover:text-red-600 md:hover:bg-transparent md:border-0 md:p-0">
                 Logout
+                </a>
+            </li>
+            
+            <li>
+                <a href="{{ url_for('user.user', id=g.user.id)}}">
+                    {% if g.user.pfp_filename %}
+                    <img class="rounded-full object-cover w-8 h-8" src="{{ url_for('send_uploaded_file', filename=g.user.pfp_filename) }}">
+                    {% else %}
+                    <img class="rounded-full border border-gray-200 object-cover w-8 h-8" src="{{ url_for('static', filename='Images/bird.jpeg')}}">
+                    {% endif %}
                 </a>
             </li>
 

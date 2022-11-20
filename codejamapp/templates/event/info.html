@@ -4,7 +4,7 @@
     <div class="flex justify-center">
         <div class="md:w-6/12 w-10/12 mx-20 shadow-md px-10 py-10 mt-14 rounded">
             <div>
-                <a onclick="history.back()">
+                <a onclick="history.back()" class="hover:cursor-pointer">
                     <img src="{{ url_for('static', filename='images/arrow.png') }}"
                          class="h-3 mr-3 sm:h-5 hover:opacity-70">
                 </a>
@@ -15,7 +15,7 @@
                                                 class="underline hover:text-red-600">{{ event.creator.name }}</a></p>
             <br>
             <p><span class="font-bold">Location:</span> {{ event.location }}</p>
-            <p><span class="font-bold">Start time:</span> {{ event.start_time.strftime('%Y-%m-%d %H:%M') }}</p>
+            <p><span class="font-bold">Start time:</span> {{ event.start_time.strftime('%B %d, %Y at %H:%M') }}</p>
             <p class="mt-3 mb-7 break-words">{{ event.description }}</p>
             <img class="w-auto" src="{{ url_for('send_uploaded_file', filename=event.image_filename) }}">
             <div class="mb-7">

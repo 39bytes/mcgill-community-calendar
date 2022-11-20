@@ -1,4 +1,5 @@
-from flask import (Blueprint, request, url_for, redirect, render_template, flash, g, abort)
+import os
+from flask import (Blueprint, request, url_for, redirect, render_template, flash, g, abort, current_app)
 from codejamapp.models import Event
 from codejamapp import auth
 from codejamapp.database import db_session
@@ -6,6 +7,7 @@ from sqlalchemy import exc
 from datetime import datetime, timedelta
 from typing import List
 from codejamapp.models import VALID_TAGS
+from codejamapp.utils import allowed_file, append_timestamp_and_hash
 
 bp = Blueprint('event', __name__)
 
@@ -41,6 +43,7 @@ def info(id):
 @bp.route("/<int:id>/edit", methods=("GET", "POST"))
 @auth.login_required
 def edit(id):
+    error = None
     event = Event.query.filter(Event.id == id).first()
     if request.method == "POST":
         name = request.form["name"]
@@ -50,15 +53,37 @@ def edit(id):
         
         start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
 
-        setattr(event, "name", name)
-        setattr(event, "description", description)
-        setattr(event, "location", location)
-        setattr(event, "start_time", start_time)
-        db_session.commit()
+        if datetime.now() > start_time:
+            error = "Start time must be in the future."
 
-        return redirect(url_for("event.info", id=event.id))
+        if error is None:
+
+            new_image = request.files["eventImage"]
+            new_filename = event.image_filename
+
+            if new_image:
+                if event.image_filename:
+                    filename = event.image_filename
+                    os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+
+                new_filename = append_timestamp_and_hash(new_image.filename)
+                new_image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], new_filename))
+
+            setattr(event, "name", name)
+            setattr(event, "description", description)
+            setattr(event, "location", location)
+            setattr(event, "start_time", start_time)
+            setattr(event, "image_filename", new_filename)
+            db_session.commit()
+
+            return redirect(url_for("event.info", id=event.id))
+
+        flash(error)
+
+        return render_template('event/edit.html')
 
     return render_template("event/edit.html", event=event)
+
 @bp.route("/create", methods=("GET", "POST"))
 @auth.login_required
 def create():
@@ -68,6 +93,7 @@ def create():
         start_time = request.form['start_time']
         description = request.form['description']
         tags = request.form.getlist('tags[]')
+        image = request.files['eventImage']
         error = None
 
         print(tags)
@@ -80,16 +106,25 @@ def create():
             error = "A start time is required"
         elif not description:
             error = "A description is required"
-        
+
         start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
+
+        if datetime.now() > start_time:
+            error = "Start time must be in the future."
 
         if error is None:
             try:
-                event = Event(name, g.user.id, description, location, start_time, ",".join(tags))
+                filename = ''
+                if image and allowed_file(image.filename):
+                    filename = append_timestamp_and_hash(image.filename)
+                    image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+                event = Event(name, g.user.id, description, location, start_time, ",".join(tags), filename)
                 db_session.add(event)
                 db_session.commit()
             except exc.IntegrityError:
                 db_session.rollback()
+                if filename:
+                    os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
                 error = f"An event with those details already exists!"
             else:
                 return redirect(url_for("event.info", id=event.id))
@@ -101,8 +136,7 @@ def create():
 @bp.route('/<int:id>/delete', methods=("POST",))
 @auth.login_required
 def delete(id):
-    event = Event.query.filter(Event.id == id).first()
-    event.query.filter(event.id == id).delete()
+    Event.query.filter(Event.id == id).delete()
     db_session.commit()
     return redirect(url_for("index"))
 

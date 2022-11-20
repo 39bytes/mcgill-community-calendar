@@ -1,9 +1,12 @@
 import functools
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 )
 
+import os 
+
 from codejamapp.models import User
+from codejamapp.utils import allowed_file, append_timestamp_and_hash
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import exc
@@ -17,15 +20,30 @@ def register():
         name = request.form["name"]
         email = request.form['email']
         password = request.form['password']
+        image = request.files['userImage']
         error = None
+
+        if not name:
+            error = "Name is required."
+        elif not email:
+            error = "Email is required."
+        elif not password:
+            error = "Password is required."
+        
         
         if error is None:
             try:
-                u = User(name, email, generate_password_hash(password))
+                filename = ''
+                if image and allowed_file(image.filename):
+                    filename = append_timestamp_and_hash(image.filename)
+                    image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+                u = User(name, email, generate_password_hash(password), filename)
                 db_session.add(u)
                 db_session.commit()
             except exc.IntegrityError:
                 db_session.rollback()
+                if filename:
+                    os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
                 error = f"User with that email already exists!"
             else:
                 return redirect(url_for("auth.login"))

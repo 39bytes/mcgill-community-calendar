@@ -32,6 +32,6 @@
     }
 
     .event-desc a:hover {
-        @apply hover:bg-red-500
+        @apply hover:text-red-600
     }
 }

@@ -61,7 +61,7 @@ def edit(id):
         
         start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
         
-        if datetime.now().date() > start_time.date():
+        if datetime.now() > start_time:
             error = "Start time must be in the future."
 
         if error is None:

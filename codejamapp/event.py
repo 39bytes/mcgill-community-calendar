@@ -24,10 +24,8 @@ def index():
 
     # Gets events where tags with any of the filtered tags
     events = [event for event in events if any(tag in event.tags for tag in tags_list)]
-    print(tags_list)
-    print(events)
     events = group_by_day(events, now - timedelta(days=offset))
-
+    print(VALID_TAGS)
     return render_template('event/index.html', 
             filtered_tags=filtered_tags, valid_tags=VALID_TAGS, events=events, 
             offset=offset, current_day=now.day)

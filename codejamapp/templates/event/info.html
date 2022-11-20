@@ -17,7 +17,11 @@
             <p><span class="font-bold">Location:</span> {{ event.location }}</p>
             <p><span class="font-bold">Start time:</span> {{ event.start_time.strftime('%Y-%m-%d %H:%M') }}</p>
             <p class="mt-3 mb-7 break-words">{{ event.description }}</p>
-            <img class="w-auto" src="{{ url_for('send_uploaded_file', filename=event.image_filename) }}">
+
+            {% if event.image_filename %}
+                <img class="w-auto" src="{{ url_for('send_uploaded_file', filename=event.image_filename) }}">
+            {% endif %}
+
             <div class="mb-7">
                 {% for tag in event.tags.split(',') %}
                     <span class="text-gray-400">#{{ tag }}</span>

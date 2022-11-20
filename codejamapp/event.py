@@ -43,6 +43,7 @@ def info(id):
 @bp.route("/<int:id>/edit", methods=("GET", "POST"))
 @auth.login_required
 def edit(id):
+    error = None
     event = Event.query.filter(Event.id == id).first()
     if request.method == "POST":
         name = request.form["name"]
@@ -52,13 +53,34 @@ def edit(id):
         
         start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
 
-        setattr(event, "name", name)
-        setattr(event, "description", description)
-        setattr(event, "location", location)
-        setattr(event, "start_time", start_time)
-        db_session.commit()
+        if datetime.now() > start_time:
+            error = "Start time must be in the future."
 
-        return redirect(url_for("event.info", id=event.id))
+        if error is None:
+
+            new_image = request.files["eventImage"]
+            new_filename = event.image_filename
+
+            if new_image:
+                if event.image_filename:
+                    filename = event.image_filename
+                    os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+
+                new_filename = append_timestamp_and_hash(new_image.filename)
+                new_image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], new_filename))
+
+            setattr(event, "name", name)
+            setattr(event, "description", description)
+            setattr(event, "location", location)
+            setattr(event, "start_time", start_time)
+            setattr(event, "image_filename", new_filename)
+            db_session.commit()
+
+            return redirect(url_for("event.info", id=event.id))
+
+        flash(error)
+
+        return render_template('event/edit.html')
 
     return render_template("event/edit.html", event=event)
 @bp.route("/create", methods=("GET", "POST"))

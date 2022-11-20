@@ -49,6 +49,7 @@ def edit(id):
         description = request.form["description"]
         location = request.form["location"]
         start_time = request.form["start_time"]
+        tags = request.form.getlist('tags[]')
         
         start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
 
@@ -73,15 +74,14 @@ def edit(id):
             setattr(event, "location", location)
             setattr(event, "start_time", start_time)
             setattr(event, "image_filename", new_filename)
+            setattr(event, "tags", ",".join(tags))
             db_session.commit()
 
             return redirect(url_for("event.info", id=event.id))
 
         flash(error)
 
-        return render_template('event/edit.html')
-
-    return render_template("event/edit.html", event=event)
+    return render_template("event/edit.html", event=event, valid_tags=VALID_TAGS)
 
 @bp.route("/create", methods=("GET", "POST"))
 @auth.login_required
@@ -128,7 +128,7 @@ def create():
 
         flash(error)
 
-    return render_template('event/create.html')
+    return render_template('event/create.html', valid_tags=VALID_TAGS)
 
 @bp.route('/<int:id>/delete', methods=("POST",))
 @auth.login_required

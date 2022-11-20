@@ -43,6 +43,15 @@
               this.style.height = this.scrollHeight + 'px';
             }
           </script>
+
+        <div class="mb-6">
+          <label for="tags" class="block mb-2 text-sm font-medium text-gray-900">Select tags... (Hold ctrl to select multiple)</label>
+          <select multiple id="tags" name="tags[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            {% for tag in valid_tags %}
+            <option value="{{ tag }}" {{ 'selected' if tag in event.tags}}>{{ tag }}</option>
+            {% endfor %}
+          </select>
+        </div>
         
         <div class="mb-6">
             <label for="eventImage" class="cursor-pointer mb-2 text-sm font-medium text-gray-900">

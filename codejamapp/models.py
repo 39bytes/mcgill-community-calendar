@@ -10,6 +10,7 @@ class User(Base):
     name = Column(String(100), nullable=False)
     email = Column(String(50), unique = True, nullable = False)
     password = Column(String(256), nullable = False)
+    description = Column(Text, nullable=True)
 
     events = relationship("Event", back_populates="creator")
 

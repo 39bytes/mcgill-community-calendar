@@ -59,6 +59,7 @@ def edit(id):
         return redirect(url_for("event.info", id=event.id))
 
     return render_template("event/edit.html", event=event)
+
 @bp.route("/create", methods=("GET", "POST"))
 @auth.login_required
 def create():

@@ -27,7 +27,6 @@ def index():
     # Gets events where tags with any of the filtered tags
     events = [event for event in events if any(tag in event.tags for tag in tags_list)]
     events = group_by_day(events, now - timedelta(days=offset))
-    print(VALID_TAGS)
     return render_template('event/index.html', 
             filtered_tags=filtered_tags, valid_tags=VALID_TAGS, events=events, 
             offset=timedelta(days=offset), current_day=now)
@@ -95,8 +94,6 @@ def create():
         tags = request.form.getlist('tags[]')
         image = request.files['eventImage']
         error = None
-
-        print(tags)
 
         if not name:
             error = "A name is required."

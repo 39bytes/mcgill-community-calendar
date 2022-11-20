@@ -1,4 +1,4 @@
-from flask import (Blueprint, render_template, request, redirect, url_for)
+from flask import (Blueprint, render_template, request, redirect, url_for, abort)
 from codejamapp import auth
 
 from flask import (
@@ -12,6 +12,8 @@ bp = Blueprint('user', __name__, url_prefix="/user")
 @bp.route("/<int:id>/")
 def user(id):
     user = User.query.get(id)
+    if user is None:
+        abort(404)
     return render_template('user/user.html', user=user)
 
 @bp.route("/<int:id>/edit", methods=("GET", "POST"))

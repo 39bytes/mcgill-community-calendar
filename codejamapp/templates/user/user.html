@@ -15,12 +15,12 @@
                          src="{{ url_for('static', filename='Images/bird.jpeg') }}">
                 {% endif %}
             </div>
-            <div class="w-full flex flex-col justify-center">
-                <h1 class="text-gray-900 font-bold text-3xl leading-8 my-1 mt-4 ">{{ user.name }}</h1>
+            <div class="flex flex-col justify-center">
+                <h1 class="text-gray-900 text-center font-bold text-3xl leading-8 my-1 mt-4">{{ user.name }}</h1>
                 {% if g.user %}
-                <a href="{{ url_for('user.edit', id=user.id) }}">
+                <a href="{{ url_for('user.edit', id=user.id) }}" class="mx-auto">
                     <img src="{{ url_for('static', filename='images/pencil.png') }}"
-                         class="h-3 mr-3 sm:h-9 hover:opacity-70 mt-4">
+                         class="h-3 mr-3 sm:h-9 hover:opacity-70 mt-1">
                 </a>
             {% endif %}
             </div>

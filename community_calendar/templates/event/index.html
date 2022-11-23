@@ -55,7 +55,7 @@
                                 <a href="{{ url_for('event.info', id=event.id) }}"
                                    class="overflow-hidden rounded-xl mt-1 border hover:bg-gray-100 transition duration-100 text-sm px-2 flex flex-row align-middle">
                                     <div class="rounded-3xl h-2 px-1 py-0.5 my-auto mr-1 {{ valid_tags[event.tags.split(',')[0] if event.tags else 'bg-gray-300'] }}"></div>
-                                    <div class="block rounded-md hover:opacity-80">{{ event.name[:20] + ("..." if event.name|length > 20 else "") }}</div>
+                                    <div class="block rounded-md hover:opacity-80">{{ event.name[:30] + ("..." if event.name|length > 30 else "") }}</div>
                                 </a>
                             {% endfor %}
                         </div>

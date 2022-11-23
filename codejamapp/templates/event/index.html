@@ -4,14 +4,14 @@
 
 <!-- Quick hack to ensure tailwind imports the classes for the tag colors -->
 <div class="bg-red-500 bg-green-500 bg-blue-500 bg-pink-500 bg-yellow-500 bg-purple-500"></div>
-<div class="py-6 h-screen mx-20">
-    <h1 class="text-2xl font-bold">Events happening soon!</h1>
-    <div class="mt-4">
+<div class="py-2 h-screen mx-20">
+    <h1 class="text-2xl font-bold">Events Calendar</h1>
+    <div class="mt-2">
         <div class="w-auto h-12">
             {% for tag, color in valid_tags.items() %}
-            <a href="{{ url_for('event.index', filtered_tags=(filtered_tags + (tag if filtered_tags == '' else ',' + tag)) 
-                    if tag not in filtered_tags 
-                    else filtered_tags|replace(tag, '')|str_strip(',')) }}" class="inline-block">
+            <a href="{{ url_for('event.index', page=request.args.get('page'), filtered_tags=(filtered_tags + (tag if filtered_tags == '' else ',' + tag)) 
+                                                if tag not in filtered_tags 
+                                                else filtered_tags|replace(tag, '')|str_strip(',')) }}" class="inline-block">
                         <div class="rounded-xl border border-gray-300 {{ 'bg-red-500 hover:bg-red-700 text-white' if tag in filtered_tags else 'hover:bg-gray-200' }} transition duration-100 text-sm px-2 flex flex-row align-middle">
                             <div class="rounded-3xl h-2 px-1 py-0.5 my-auto mr-1 {{ color }}"></div>
                             <div>{{ tag }}</div>
@@ -20,6 +20,19 @@
                 {% endfor %}
             </div>
         </div>
+
+        <div class="flex justify-center">
+            {% set page = request.args.get('page')|int if request.args.get('page') else 0 %}
+            <a class="flex justify-center items-center" href="{{ url_for('event.index', page=page-1, filtered_tags=filtered_tags) }}" class="hover:cursor-pointer">
+                <img src="{{ url_for('static', filename='images/leftarrow.png') }}"
+                        class="h-3 mr-3 sm:h-5 hover:opacity-70">
+            </a>
+            <h2 class="text-xl">{{current_day.strftime('%B %Y')}}</h2>
+            <a class="flex justify-center items-center" href="{{ url_for('event.index', page=page+1, filtered_tags=filtered_tags) }}" class="hover:cursor-pointer">
+                <img src="{{ url_for('static', filename='images/rightarrow.png') }}"
+                        class="h-3 ml-3 sm:h-5 hover:opacity-70">
+            </a>
+            </div>
         <div class="rounded py-1 grid grid-cols-7 w-auto gap-2">
             {% set days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %}
             {% for day in days %}
@@ -30,17 +43,19 @@
         </div>
         <div class="rounded py-1 grid grid-cols-7 grid-rows-2 w-auto h-[28rem] gap-2">
             {% for i in range(0, 14) %}
-                <div class="overflow-y-scroll rounded {{ 'border-2' if i == offset.days else 'border' }} {{ 'bg-gray-300' if i < offset.days else 'bg-gray-50' }} {{ 'border-red-500' if i == offset.days else 'border-gray-300' }} px-2 py-1">
+                <div class="overflow-y-scroll rounded {{ 'border-2 border-red-500' if i == offset.days and (not request.args.get('page') or request.args.get('page') == '0') else 'border border-gray-300' }} 
+                                                      {{ 'bg-gray-300' if i < offset.days and (not request.args.get('page') or request.args.get('page') == '0') or request.args.get('page')|int < 0 else 'bg-gray-50' }} 
+                                                      px-2 py-1">
                     <div>
                         <div class="rounded-3xl w-5 h-5 text-center">
-                            {{ ((current_day - offset)|add_days(i)).day }}
+                            {{ (current_day|add_days(i)).day }}
                         </div>
                         <div>
                             {% for event in events[i] %}
                                 <a href="{{ url_for('event.info', id=event.id) }}"
                                    class="rounded-xl mt-1 border transition duration-100 text-sm px-2 flex flex-row align-middle">
                                     <div class="rounded-3xl h-2 px-1 py-0.5 my-auto mr-1 {{ valid_tags[event.tags.split(',')[0] if event.tags else 'bg-gray-300'] }}"></div>
-                                    <div class="block rounded-md hover:opacity-80">{{ event.name[:13] + ("..." if event.name|length > 15 else "") }}</div>
+                                    <div class="block rounded-md hover:opacity-80">{{ event.name[:20] + ("..." if event.name|length > 20 else "") }}</div>
                                 </a>
                             {% endfor %}
                         </div>
@@ -48,6 +63,7 @@
                 </div>
             {% endfor %}
         </div>
+        
     </div>
 </div>
 {% endblock%}
